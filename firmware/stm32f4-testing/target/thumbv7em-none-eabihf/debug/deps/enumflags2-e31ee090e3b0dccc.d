@@ -1,0 +1,9 @@
+/Users/olzhasakimbay/Projects/mission-apollo-21/firmware/stm32f4-testing/target/thumbv7em-none-eabihf/debug/deps/enumflags2-e31ee090e3b0dccc.d: /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/lib.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/formatting.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/fallible.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/iter.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/const_api.rs
+
+/Users/olzhasakimbay/Projects/mission-apollo-21/firmware/stm32f4-testing/target/thumbv7em-none-eabihf/debug/deps/libenumflags2-e31ee090e3b0dccc.rmeta: /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/lib.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/formatting.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/fallible.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/iter.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/const_api.rs
+
+/Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/lib.rs:
+/Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/formatting.rs:
+/Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/fallible.rs:
+/Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/iter.rs:
+/Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/enumflags2-0.7.12/src/const_api.rs:

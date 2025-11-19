@@ -1,0 +1,3 @@
+cargo:rustc-link-search=/Users/olzhasakimbay/Projects/mission-apollo-21/firmware/stm32f4-testing/target/thumbv7em-none-eabihf/debug/build/stm32f4-e5a7ded212664fd4/out
+cargo:rerun-if-changed=src/stm32f411/device.x
+cargo:rerun-if-changed=build.rs

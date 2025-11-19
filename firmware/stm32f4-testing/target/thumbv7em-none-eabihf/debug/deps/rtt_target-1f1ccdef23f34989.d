@@ -1,0 +1,9 @@
+/Users/olzhasakimbay/Projects/mission-apollo-21/firmware/stm32f4-testing/target/thumbv7em-none-eabihf/debug/deps/rtt_target-1f1ccdef23f34989.d: /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/lib.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/debug.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/rtt.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/init.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/print.rs
+
+/Users/olzhasakimbay/Projects/mission-apollo-21/firmware/stm32f4-testing/target/thumbv7em-none-eabihf/debug/deps/librtt_target-1f1ccdef23f34989.rmeta: /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/lib.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/debug.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/rtt.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/init.rs /Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/print.rs
+
+/Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/lib.rs:
+/Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/debug.rs:
+/Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/rtt.rs:
+/Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/init.rs:
+/Users/olzhasakimbay/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rtt-target-0.6.2/src/print.rs:
