@@ -1,1 +1,0 @@
-/Users/olzhasakimbay/Projects/mission-apollo-21/firmware/stm32f4-testing/target/thumbv7em-none-eabihf/debug/stm32f4-testing: /Users/olzhasakimbay/Projects/mission-apollo-21/firmware/stm32f4-testing/src/main.rs
