@@ -1,9 +1,6 @@
 #![no_std]
 #![no_main]
-extern crate alloc;
 
-use alloc::format;
-use alloc::string::String;
 use cortex_m_rt::entry;
 use panic_halt as _;
 use stm32f4xx_hal as hal;
@@ -12,9 +9,15 @@ use hal::
     pac,
     prelude::*,
     rcc::Config,
-    timer::{Timer,Timer1}
+    timer::{Timer,Timer2},
+    spi::{Mode}
 };
 use rtt_target::{rtt_init_print, rprintln};
+use stm32f4xx_hal::spi::{Phase, Polarity, Spi};
+
+mod drivers;
+use drivers::imu::bmi323::{Bmi323};
+use crate::drivers::imu::Imu;
 
 #[entry]
 fn main() -> ! {
@@ -30,29 +33,39 @@ fn main() -> ! {
 
     let mut clocks = rcc.freeze(rcc_config);
 
-    let gpioc = peripherals.GPIOC.split(&mut clocks);
+    let gpioa = peripherals.GPIOA.split(&mut clocks);
+    //SPI pins
+    let sck = gpioa.pa5.into_alternate();
+    let miso = gpioa.pa6.into_alternate();
+    let mosi = gpioa.pa7.into_alternate();
 
-    let mut led = gpioc.pc13.into_push_pull_output();
+    //Chip select pin
+    let mut cs = gpioa.pa4.into_push_pull_output();
+    cs.set_high();
 
-    let mut delay = Timer::syst(cp.SYST,&clocks.clocks).delay();
+    let spi_mode = Mode{
+        polarity: Polarity::IdleLow,
+        phase: Phase::CaptureOnFirstTransition
+    };
 
-    // let tim1 = Timer1::new(peripherals.TIM1,&mut clocks);
+    let mut spi = Spi::new(
+        peripherals.SPI1,
+        (Some(sck),Some(miso),Some(mosi)),
+        spi_mode,
+        1.MHz(),
+        &mut clocks
+    );
 
-    let final_clocks = &clocks.clocks;
-    let (sys,ahb,apb1,apb2) = (final_clocks.sysclk(),final_clocks.hclk(),final_clocks.pclk1(),final_clocks.pclk2());
-    rprintln!("System: {}; ahb: {}; apb1:{}; apb2:{};",sys,ahb,apb1,apb2);
-    let mut is_off: bool = true;
+    // let delay = Timer::syst(cp.SYST,&clocks.clocks).delay();
+
+    let mut imu = Bmi323::new(&mut spi,&mut cs);
+
+    let whoami = imu.read_register(0x72);
+
+    rprintln!("whoami: {}",whoami);
+
+
     loop {
-
-        if is_off {
-            led.set_high();
-            is_off = false;
-            delay.delay_ms(2000u32);
-        }else {
-            led.set_low();
-            is_off = true;
-            delay.delay_ms(500u32);
-        }
-
+        cortex_m::asm::nop();
     }
 }
