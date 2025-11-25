@@ -1,37 +1,27 @@
-package com.example.fpvdrone
+package com.example.fpvjoystick
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import io.github.controlwear.virtual.joystick.android.JoystickView
+import com.zerokol.views.JoystickView
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var leftJoy: JoystickView
-    private lateinit var rightJoy: JoystickView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        leftJoy = findViewById(R.id.joystickLeft)
-        rightJoy = findViewById(R.id.joystickRight)
+        val joystickLeft = findViewById<JoystickView>(R.id.joystickLeft)
+        val joystickRight = findViewById<JoystickView>(R.id.joystickRight)
 
-        leftJoy.setOnMoveListener { angle, strength ->
-            val throttle = strength
-            val yaw = angle
-            sendToDrone("THROTTLE", throttle)
-            sendToDrone("YAW", yaw)
+        joystickLeft.setOnMoveListener { angle, strength ->
+            // angle = направление, strength = сила движения
+            // TODO: Отправить данные левому движению дрона
+            println("Левый джойстик: angle=$angle, strength=$strength")
         }
 
-        rightJoy.setOnMoveListener { angle, strength ->
-            val pitch = strength
-            val roll = angle
-            sendToDrone("PITCH", pitch)
-            sendToDrone("ROLL", roll)
+        joystickRight.setOnMoveListener { angle, strength ->
+            // TODO: Отправить данные правому движению дрона
+            println("Правый джойстик: angle=$angle, strength=$strength")
         }
-    }
-
-    private fun sendToDrone(type: String, value: Int) {
-        println("$type: $value")
     }
 }
