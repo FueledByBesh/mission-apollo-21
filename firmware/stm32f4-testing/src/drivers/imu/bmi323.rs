@@ -46,14 +46,14 @@ where
     }
 
     fn read_register(&mut self, reg: u8) -> u8 {
-        let addr = reg | 0x80; // set MSB for read
-        let mut buf = [0u8];
+        // let addr = reg | 0x80; // set MSB for read
+        let mut buf = [reg | 0x80, 0x00];
 
         self.cs.set_low().ok();
         self.spi.transfer(&mut buf).ok();
         self.cs.set_high().ok();
 
-        buf[0]
+        buf[1]
     }
 
     fn write_register(&mut self, reg: u8, value: u8) {
