@@ -5,8 +5,18 @@ use stm32f4xx_hal::hal_02::blocking::spi::Transfer;
 use stm32f4xx_hal::pac::SPI1;
 use stm32f4xx_hal::spi::Spi;
 
-fn imu_spi_connection(spi: &mut Spi<SPI1>){
+fn spi_init(gpioa: &mut stm32f4xx_hal::gpio::gpioa::Parts){
+
+    let clk = gpioa.pa5.into_alternate();
+    let miso = gpioa.pa6.into_alternate();
+    let mosi = gpioa.pa7.into_alternate();
     
+    let spi = Spi::
+
+}
+
+fn imu_spi_connection(spi: &mut Spi<SPI1>){
+
     
 }
 

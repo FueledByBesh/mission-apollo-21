@@ -10,15 +10,12 @@ use hal::
     prelude::*,
     rcc::Config,
     timer::{Timer},
-    spi::{Mode}
+    spi::{Spi,Mode},
+    gpio::{Speed}
 };
-// use stm32f4xx_hal::gpio;
-use rtt_target::rtt_init_print;
-use stm32f4xx_hal::hal_02::blocking::spi::Transfer;
-use stm32f4xx_hal::hal_02::digital::v2::OutputPin;
-
-mod blink_led;
-use blink_led::blink;
+use rtt_target::{rprintln, rtt_init_print};
+use stm32f4xx_hal::hal::digital::OutputPin;
+use stm32f4xx_hal::hal::spi::SpiBus;
 
 #[entry]
 fn main() -> ! {
@@ -35,14 +32,46 @@ fn main() -> ! {
     let mut clocks = rcc.freeze(rcc_config);
 
     let gpioa = peripherals.GPIOA.split(&mut clocks);
-    let mut led_pin = gpioa.pa5.into_push_pull_output();
+
+    let mut clk = gpioa.pa5.into_alternate();
+    let mut miso = gpioa.pa6.into_alternate();
+    let mut mosi = gpioa.pa7.into_alternate();
+    clk.set_speed(Speed::Medium);
+    miso.set_speed(Speed::Medium);
+    mosi.set_speed(Speed::Medium);
+
+    let mut chip_select = gpioa.pa4.into_push_pull_output();
+    chip_select.set_high();
+    chip_select.set_speed(Speed::Medium);
+
+    let mode = Mode{
+        polarity: hal::spi::Polarity::IdleLow,
+        phase: hal::spi::Phase::CaptureOnFirstTransition,
+    };
+
+
+    let mut spi = Spi::new(
+        peripherals.SPI1,
+        (Some(clk),Some(miso),Some(mosi)),
+        mode,
+        100.kHz(),
+        &mut clocks
+    );
 
     let mut delay = Timer::syst(cp.SYST,&clocks.clocks).delay();
     delay.delay_ms(1000);
 
+
+    let tx = [0b1000_0000,0];
+
     loop {
-        blink(&mut led_pin);
-        delay.delay_ms(200);
+        let mut rx = [0u8; 4];
+        delay.delay_ms(1000);
+        chip_select.set_low();
+        spi.transfer(&mut rx, &tx).unwrap();
+        chip_select.set_high();
+        rprintln!("{:?}",rx);
+        delay.delay_ms(3000);
     }
 }
 
