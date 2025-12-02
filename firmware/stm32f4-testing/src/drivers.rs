@@ -1,1 +1,1 @@
-pub mod imu;
+pub mod bmi323;
