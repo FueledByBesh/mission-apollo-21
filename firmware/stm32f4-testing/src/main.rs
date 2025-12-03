@@ -2,7 +2,6 @@
 #![no_main]
 
 use cortex_m_rt::entry;
-use panic_halt as _;
 use rtt_target::{rprintln};
 use stm32f4xx_hal::prelude::_fugit_RateExtU32;
 
@@ -29,6 +28,12 @@ fn main() -> ! {
         app.bmi323.read_gyr();
     }
 
+}
+
+#[panic_handler]
+fn panic(info: &core::panic::PanicInfo) -> ! {
+    rprintln!("{}", info);
+    loop {}
 }
 
 
