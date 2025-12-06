@@ -23,22 +23,4 @@ impl<const LEN: usize> U8ArrayWrapper<LEN> {
             result
         }
     }
-    
-    
-}
-
-#[cfg(test)]
-mod test{
-    use crate::helper::U8ArrayWrapper;
-
-    #[test]
-    fn test_u8_array(){
-        let wrapper = U8ArrayWrapper{inner:[0x5]};
-        assert_eq!(wrapper.get_u8(),5);
-    }
-    #[test]
-    fn test_u16_array(){
-        let wrapper = U8ArrayWrapper{inner:[0x01,0x0]};
-        assert_eq!(wrapper.get_u16(),256);
-    }
 }

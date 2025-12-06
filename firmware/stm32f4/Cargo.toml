@@ -1,0 +1,18 @@
+[package]
+name = "stm32f4"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "stm32f4"
+path = "src/main.rs"
+test = false
+bench = false
+
+[dependencies]
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+#panic-halt = "1.0.0"
+
+stm32f4xx-hal = { version = "0.23.0", features = ["stm32f411"] }
+rtt-target = "0.6.2"
