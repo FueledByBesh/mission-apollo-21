@@ -1,5 +1,5 @@
 [package]
-name = "stm32"
+name = "stm32f1-controller"
 version = "0.1.0"
 edition = "2024"
 

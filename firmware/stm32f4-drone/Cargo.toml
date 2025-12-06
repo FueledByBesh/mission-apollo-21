@@ -1,10 +1,10 @@
 [package]
-name = "stm32f4"
+name = "stm32f4-drone"
 version = "0.1.0"
 edition = "2024"
 
 [[bin]]
-name = "stm32f4"
+name = "stm32f4-drone"
 path = "src/main.rs"
 test = false
 bench = false
