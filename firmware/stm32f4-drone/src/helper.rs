@@ -23,4 +23,8 @@ impl<const LEN: usize> U8ArrayWrapper<LEN> {
             result
         }
     }
+
+    // pub fn get_i16(&self) -> i16{
+    //     i16::from_be_bytes(self.inner)
+    // }
 }

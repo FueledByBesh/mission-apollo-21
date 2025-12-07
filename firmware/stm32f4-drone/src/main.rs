@@ -25,7 +25,7 @@ fn main() -> ! {
     loop {
         app.delay.delay_ms(500);
         app.bmi323.read_temp();
-        app.bmi323.read_gyr();
+        // app.bmi323.read_gyr();
     }
 
 }

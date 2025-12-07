@@ -10,7 +10,6 @@ use stm32f4xx_hal::spi::{Mode, Spi};
 use cortex_m::Peripherals as CorePeripherals;
 use cortex_m::delay::Delay;
 use crate::drivers::bmi323::{Bmi323};
-use crate::drivers::bmi323::config::Configure;
 
 pub struct App
 {

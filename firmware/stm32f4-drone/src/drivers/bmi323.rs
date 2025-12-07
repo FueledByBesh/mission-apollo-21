@@ -39,7 +39,7 @@ impl Bmi323<SPI1,'A',4> {
             rprintln!("BMI323 not detected"); }
     }
 
-    pub fn read_gyr(&mut self){
+    pub fn read_raw_gyr(&mut self){
         let gyr_x = U8ArrayWrapper{inner: self._read_16bit_register(Registers::GYR_DATA_X)};
         let gyr_y = U8ArrayWrapper{inner: self._read_16bit_register(Registers::GYR_DATA_X+1)};
         let gyr_z = U8ArrayWrapper{inner: self._read_16bit_register(Registers::GYR_DATA_X+2)};
@@ -50,8 +50,9 @@ impl Bmi323<SPI1,'A',4> {
 
     pub fn read_temp(&mut self) {
         let buf = self._read_16bit_register(Registers::TEMP_DATA);
-        let raw_temp = ((buf[1] as i16) << 8) | (buf[0] as i16);
-        rprintln!("Temperature: {} degC", (raw_temp/512)+23);
+        let raw_temp = i16::from_le_bytes(buf);
+        let temp_c = raw_temp as f32 / 512.0 + 23.0;
+        rprintln!("Temperature: {} degC", temp_c);
     }
 
     pub fn soft_reset(&mut self){
@@ -68,13 +69,16 @@ pub trait WriteRead16bit{
 }
 
 impl WriteRead16bit for Bmi323<SPI1,'A',4>{
+
+    /// returns [lsb,msb]
     fn _read_16bit_register(&mut self, addr: u8) -> [u8;2]{
         let mut rx = [0x00;4];
         self.cs.set_low();
         self.spi.transfer(&mut rx,&[addr | 0x80,0_u8]).unwrap();
         self.cs.set_high();
-        [rx[3],rx[2]]
+        [rx[2],rx[3]]
     }
+    /// data is [msb,lsb]
     fn _write_16bit_register(&mut self, addr: u8, data: [u8;2]){
         let tx = [addr,data[1],data[0]];
         self.cs.set_low();
