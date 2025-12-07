@@ -1,4 +1,4 @@
-use rtt_target::{rprintln, rtt_init_print};
+use rtt_target::{rprintln};
 use stm32f4xx_hal::{
     pac,
     prelude::*,
@@ -26,7 +26,6 @@ impl App{
     }
 
     fn init() -> Self{
-        rtt_init_print!();
         let peripherals = pac::Peripherals::take().unwrap();
         let cp = CorePeripherals::take().unwrap();
         let rcc= peripherals.RCC.constrain();

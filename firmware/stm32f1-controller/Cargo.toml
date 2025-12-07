@@ -3,13 +3,15 @@ name = "stm32f1-controller"
 version = "0.1.0"
 edition = "2024"
 
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+
 [dependencies]
 cortex-m-rt = "0.7.5"
 cortex-m = "0.7.7"
-panic-halt = "1.0.0"
-
-embedded-hal = "1.0"
-nb = "1"
 stm32f1xx-hal = {version = "0.11.0", features=["stm32f103", "medium"]}
 
 [dev-dependencies]

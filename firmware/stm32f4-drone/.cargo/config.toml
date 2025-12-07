@@ -1,5 +1,6 @@
 [build]
 target = "thumbv7em-none-eabihf"
+#target-dir = "target/stm32f4-drone"
 
 [target.thumbv7em-none-eabihf]
 rustflags = [

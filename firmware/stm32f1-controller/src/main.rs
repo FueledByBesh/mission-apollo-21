@@ -2,7 +2,6 @@
 #![no_main]
 
 use cortex_m_rt::entry;
-use panic_halt as _;
 // use stm32f1xx_hal::{
 //     pac,
 //     prelude::*,
@@ -13,6 +12,11 @@ use panic_halt as _;
 fn main() -> ! {
 
     loop {
-        // CPU ничего не делает
+        cortex_m::asm::nop();
     }
+}
+
+#[panic_handler]
+fn panic(_info: &core::panic::PanicInfo) -> ! {
+    loop {}
 }

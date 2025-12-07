@@ -1,0 +1,3 @@
+[build]
+target = "aarch64-apple-darwin"
+#target-dir = "target/stm32f4-testing"

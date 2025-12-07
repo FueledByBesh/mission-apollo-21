@@ -2,7 +2,7 @@
 #![no_main]
 
 use cortex_m_rt::entry;
-use rtt_target::{rprintln};
+use rtt_target::{rtt_init_print,rprintln};
 use stm32f4xx_hal::prelude::_fugit_RateExtU32;
 
 mod drivers;
@@ -14,7 +14,7 @@ use crate::drivers::bmi323::config::Configure;
 
 #[entry]
 fn main() -> ! {
-
+    rtt_init_print!();
     rprintln!("App going to start");
     let mut app = App::setup();
     rprintln!("App started");

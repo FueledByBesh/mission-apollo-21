@@ -1,4 +1,0 @@
-[workspace]
-members = ["stm32f1-controller", "stm32f4-drone","stm32f4-testing"]
-
-resolver = "3"
