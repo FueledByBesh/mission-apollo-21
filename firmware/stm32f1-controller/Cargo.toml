@@ -14,5 +14,6 @@ cortex-m-rt = "0.7.5"
 cortex-m = "0.7.7"
 stm32f1xx-hal = {version = "0.11.0", features=["stm32f103", "medium"]}
 
-[dev-dependencies]
+rtt-target = "0.6.2"
 
+embedded-nrf24l01 = "0.2.0"
