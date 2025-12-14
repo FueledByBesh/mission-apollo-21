@@ -1,3 +1,5 @@
+use rtt_target::{rprint, rprintln};
+
 pub struct U8ArrayWrapper<const LEN: usize> {
     pub inner: [u8;LEN]
 }
@@ -27,4 +29,13 @@ impl<const LEN: usize> U8ArrayWrapper<LEN> {
     // pub fn get_i16(&self) -> i16{
     //     i16::from_be_bytes(self.inner)
     // }
+}
+
+pub fn print_binary(byte: u8){
+    let x: u8 = byte;
+    for i in (0..8).rev() {
+        let bit = (x >> i) & 1;
+        rprint!("{}", bit);
+    }
+    rprintln!();
 }

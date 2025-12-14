@@ -5,17 +5,20 @@ use stm32f4xx_hal::{
     rcc::{Rcc,Config},
 };
 use stm32f4xx_hal::gpio::{Alternate, Output, Pin, PushPull};
-use stm32f4xx_hal::pac::{SPI1};
+use stm32f4xx_hal::pac::{SPI1, TIM3};
 use stm32f4xx_hal::spi::{Mode, Spi};
 use cortex_m::Peripherals as CorePeripherals;
 use cortex_m::delay::Delay;
+use stm32f4xx_hal::timer::{Timer};
 use crate::drivers::bmi323::{Bmi323};
+use crate::drivers::motors::{Motor};
 
 pub struct App
 {
     pub rcc: Rcc,
-    pub bmi323: Bmi323<SPI1,'A',4>,
-    pub delay: Delay
+    // pub bmi323: Bmi323<SPI1,'A',4>,
+    pub delay: Delay,
+    pub motors: Motor<0>
 }
 
 impl App{
@@ -25,9 +28,9 @@ impl App{
     }
 
     fn init() -> Self{
-        let peripherals = pac::Peripherals::take().unwrap();
+        let dp = pac::Peripherals::take().unwrap();
         let cp = CorePeripherals::take().unwrap();
-        let rcc= peripherals.RCC.constrain();
+        let rcc= dp.RCC.constrain();
 
         let rcc_config:Config = Config::default()
             .use_hse(24.MHz())
@@ -37,25 +40,45 @@ impl App{
 
         let syst_delay = Delay::new(cp.SYST,rcc.clocks.sysclk().to_Hz());
 
-        let gpioa = peripherals.GPIOA.split(&mut rcc);
+        // let gpioa = dp.GPIOA.split(&mut rcc);
+        let gpiob = dp.GPIOB.split(&mut rcc);
 
         //bmi323 initialization
-        let bmi323 = Self::init_bmi323(
-            peripherals.SPI1,
-            gpioa.pa5.into_alternate(),
-            gpioa.pa6.into_alternate(),
-            gpioa.pa7.into_alternate(),
-            gpioa.pa4.into_push_pull_output(),
-            &mut rcc
-        );
-        rprintln!("BMI323 initialized");
+        // let bmi323 = Self::init_bmi323(
+        //     dp.SPI1,
+        //     gpioa.pa5.into_alternate(),
+        //     gpioa.pa6.into_alternate(),
+        //     gpioa.pa7.into_alternate(),
+        //     gpioa.pa4.into_push_pull_output(),
+        //     &mut rcc
+        // );
+        // rprintln!("BMI323 initialized");
+
+        let (mut pwm_manager,
+            (
+                ch1,
+                _ch2,
+                _ch3,
+                _ch4
+            )) = Timer::new(dp.TIM3, &mut rcc).pwm_hz(1.kHz());
+        pwm_manager.set_period(50.Hz());
+        let mut ch1 = ch1.with(gpiob.pb4.into_alternate());
+        ch1.enable();
+        let max_duty = ch1.get_max_duty();
+        rprintln!("CH1 Max duty: {}", max_duty);
 
         Self{
-            bmi323,
+            // bmi323,
             rcc,
-            delay: syst_delay
+            delay: syst_delay,
+            motors: Motor{channel: ch1}
         }
 
+    }
+    
+    fn init_nrf24l01(&mut self){
+        
+        
     }
 
     fn init_bmi323(

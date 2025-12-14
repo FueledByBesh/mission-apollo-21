@@ -25,6 +25,7 @@ impl Registers {
     pub const CMD_SOFT_RESET: u16 = 0xDEAF;
 }
 
+#[derive(Clone,Copy)]
 pub enum ODR{
     Odr0p78hz,
     Odr1p56hz,
@@ -82,7 +83,7 @@ impl ODR{
         }
     }
 }
-
+#[derive(Clone,Copy)]
 pub enum Mode{
     Disable,
     LowPower,
@@ -109,7 +110,7 @@ impl Mode {
         }
     }
 }
-
+#[derive(Clone,Copy)]
 pub enum AvgSampleNum{
     NoFilter,
     TwoSamples,
@@ -146,7 +147,7 @@ impl AvgSampleNum {
     }
 }
 
-
+#[derive(Clone,Copy)]
 pub enum AccRange{
     TwoG,
     FourG,
@@ -171,8 +172,17 @@ impl AccRange {
             _ => panic!("Invalid acc range value"),
         }
     }
-}
 
+    pub fn get_lsb_per_g_value(&self) -> f32{
+        match self {
+            AccRange::TwoG => {16384.0},
+            AccRange::FourG => {8192.0},
+            AccRange::EightG => {4096.0},
+            AccRange::SixteenG => {2048.0},
+        }
+    }
+}
+#[derive(Clone,Copy)]
 pub enum GyroRange{
     A125,
     A250,
@@ -187,7 +197,7 @@ impl GyroRange {
             GyroRange::A125 => { 0x0 }
             GyroRange::A250 => { 0x1 }
             GyroRange::A500 => { 0x2 }
-            GyroRange::A1000 => { 0x3 }
+            GyroRange::A1000 => { 0x3 } // should be 0x3
             GyroRange::A2000 => { 0x4 }
         }
     }
@@ -201,9 +211,19 @@ impl GyroRange {
             _ => panic!("Invalid gyro range value"),
         }
     }
+
+    pub fn get_lsb_per_dps_value(&self) -> f32{
+        match self {
+            GyroRange::A125 => {262.144},
+            GyroRange::A250 => {131.072},
+            GyroRange::A500 => {65.536},
+            GyroRange::A1000 => {32.768},
+            GyroRange::A2000 => {16.4},
+        }
+    }
 }
 
-
+#[derive(Clone,Copy)]
 pub enum  BW{
     Low,
     High

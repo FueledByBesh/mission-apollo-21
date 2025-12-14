@@ -18,21 +18,20 @@ fn main() -> ! {
     rprintln!("App going to start");
     let mut app = App::setup();
     rprintln!("App started");
-    app.bmi323.soft_reset();
-    app.delay.delay_ms(1000);
-    app.bmi323.default_config();
-    app.bmi323.who_am_i();
+    app.delay.delay_ms(4000);
+    let duty:u8 = 7;
+    rprintln!("Duty: {}%",duty);
+    app.motors.set_duty(duty);
+    rprintln!("Max Duty: {}",app.motors.channel.get_max_duty());
+    rprintln!("Current Duty: {}", app.motors.channel.get_duty());
     loop {
-        app.delay.delay_ms(500);
-        app.bmi323.read_temp();
-        // app.bmi323.read_gyr();
+       cortex_m::asm::nop();
     }
-
 }
 
 #[panic_handler]
 fn panic(info: &core::panic::PanicInfo) -> ! {
-    rprintln!("{}", info);
+    rprintln!("PANIC: {}!", info);
     loop {}
 }
 
