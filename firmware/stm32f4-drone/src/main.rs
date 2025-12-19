@@ -3,6 +3,7 @@
 mod drivers;
 mod app;
 mod helper;
+mod pid; // simple PID controller module
 
 use cortex_m::register::msp::read;
 use cortex_m_rt::{entry};
